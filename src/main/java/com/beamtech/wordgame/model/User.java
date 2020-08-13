@@ -14,4 +14,8 @@ public class User extends Base{
     private String username;
 
     private String password;
+
+    private boolean isOnline;
+
+    private boolean isInGame;
 }

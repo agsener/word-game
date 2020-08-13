@@ -1,8 +1,12 @@
 var app = angular.module("app",
-    ["ngRoute", "login"]);
+    [
+        "ngRoute",
+        "login",
+        "lobby"
+    ]);
 
 app.config(["$routeProvider", "$locationProvider",
-    function ($routeProvider, $locationProvider){
+    function ($routeProvider, $locationProvider) {
 
         $locationProvider.html5Mode({enabled: true});
 
@@ -14,7 +18,7 @@ app.config(["$routeProvider", "$locationProvider",
                 template: "<lobby-page></lobby-page>"
             })
             .otherwise({
-                 redirectTo: "/"
+                redirectTo: "/"
             });
 
     }]);

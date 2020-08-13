@@ -1,5 +1,5 @@
 var app = angular.module("lobby",
-        ['ngResource']);
+    ['ngResource']);
 
 app.factory('GameApi', ['$resource', function ($resource) {
 
