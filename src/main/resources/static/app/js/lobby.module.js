@@ -8,6 +8,10 @@ app.factory('GameApi', ['$resource', function ($resource) {
         onlinePlayers: {
             method: "POST",
             url: baseUrl + "/players"
+        },
+        gameRequest: {
+          method: "POST",
+          url: "/game/game-request"
         }
     });
 }]);

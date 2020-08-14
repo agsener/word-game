@@ -1,11 +1,17 @@
 <div>
     <ul class="list-unstyled">
         <li ng-repeat="user in users">
-            <div class="col"
+            <div class="col hand"
                  ng-dblclick="gameRequest($index)">
                 {{user.username}}
             </div>
         </li>
     </ul>
 </div>
+
+<style>
+    .hand {
+        cursor: pointer;
+    }
+</style>
 

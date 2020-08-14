@@ -1,7 +1,7 @@
 angular.module("lobby")
     .component("onlinePlayers", {
         templateUrl: "/app/template/lobby/onlinePlayers.html",
-        controller: function ($scope, GameApi) {
+        controller: function ($scope, $window, GameApi) {
 
             var stompClient = null;
 
@@ -24,12 +24,36 @@ angular.module("lobby")
             };
 
             $scope.gameRequest = function (index) {
+                GameApi.gameRequest($scope.users[index], function (response) {
+                    if(response.code == 0){
+                        alert("İstek göderildi cevap bekleniyor");
+                    }
+                })
                 console.log("Cift tiklanince girdi")
                 console.log(index);
             }
 
+            $scope.gameRequestControl = function(){
+                var socket = new SockJS('/word-socket');
+                stompClient = Stomp.over(socket);
+                stompClient.debug = null
+                stompClient.connect({}, function (frame) {
+                    console.log('Connected: ' + frame);
+
+                    //Kullaniciya gelen oyun isteklerinin oldugu web socket
+                    stompClient.subscribe('/topic/game-request', function (msg) {
+                        var response = JSON.parse(msg.body);
+                        console.log("game response sender " + response.sender);
+                        console.log("game response receiver " + response.receiver);
+                        console.log("session: " + window.sessionStorage("LOGGEDIN_USER"));
+                        $scope.$apply();
+                    });
+                });
+            }
+
             $scope.init = function () {
                 $scope.registerTopic();
+                $scope.gameRequestControl();
                 $scope.users = [];
             };
 
