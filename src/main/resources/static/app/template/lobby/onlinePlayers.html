@@ -1,7 +1,11 @@
 <div>
     <ul>
         <li ng-repeat="user in users">
-            {{user.username}}
+            <div class="col"
+                 ng-dblclick="gameRequest($index)">
+                {{user.username}}
+            </div>
         </li>
     </ul>
 </div>
+
