@@ -1,5 +1,6 @@
 package com.beamtech.wordgame.service;
 
+import com.beamtech.wordgame.dto.GameDto;
 import com.beamtech.wordgame.model.User;
 import com.beamtech.wordgame.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.List;
 public class UserService {
 
     private List<User> loggedUsers = new ArrayList<>();
+
+    private List<GameDto> activeGames = new ArrayList<>();
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
@@ -35,4 +38,8 @@ public class UserService {
     public void broadcastLiveUsers() {
         messagingTemplate.convertAndSend("/topic/online-players", loggedUsers);
     }
+
+    @Scheduled(fixedRate = 5000L)
+    public void broadcastActiveGames(){ messagingTemplate.convertAndSend("/topic/online-players", activeGames );}
+
 }
