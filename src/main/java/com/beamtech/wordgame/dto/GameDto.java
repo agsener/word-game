@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class GameDto {
 
-    private User player1;
+    private User sender;
 
-    private User player2;
+    private User receiver;
 }
