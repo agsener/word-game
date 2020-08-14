@@ -1,8 +1,8 @@
 <div>
-    <ul class="list-unstyled">
+    <ul class="list-unstyled user-list">
         <li ng-repeat="user in users">
             <div class="col hand"
-                 ng-dblclick="gameRequest($index)">
+                 ng-dblclick="gameRequest(user)">
                 {{user.username}}
             </div>
         </li>
@@ -12,6 +12,10 @@
 <style>
     .hand {
         cursor: pointer;
+    }
+
+    .user-list {
+        border-right: 1px solid #CCC;
     }
 </style>
 

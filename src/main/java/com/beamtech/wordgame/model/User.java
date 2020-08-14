@@ -14,4 +14,18 @@ public class User extends Base {
     private String username;
 
     private String password;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            return getUsername().equals(((User) obj).getUsername());
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return username.hashCode();
+    }
 }

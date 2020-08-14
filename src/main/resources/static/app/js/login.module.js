@@ -8,6 +8,10 @@ app.factory('LoginApi', ['$resource', function ($resource) {
         login: {
             method: "POST",
             url: baseUrl + "/login",
+        },
+        me: {
+            method: "GET",
+            url: baseUrl + "/me"
         }
     });
 }]);

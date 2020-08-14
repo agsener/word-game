@@ -2,7 +2,8 @@ var app = angular.module("app",
     [
         "ngRoute",
         "login",
-        "lobby"
+        "lobby",
+        "game"
     ]);
 
 app.config(["$routeProvider", "$locationProvider",
@@ -16,6 +17,9 @@ app.config(["$routeProvider", "$locationProvider",
             })
             .when("/lobby", {
                 template: "<lobby-page></lobby-page>"
+            })
+            .when("/game/:id", {
+                template: "<game></game>"
             })
             .otherwise({
                 redirectTo: "/"
