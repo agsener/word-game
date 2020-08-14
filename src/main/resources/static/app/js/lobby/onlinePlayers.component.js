@@ -16,13 +16,17 @@ angular.module("lobby")
                     //login olan kullanicinin bilgileri "msg" ile gonderiliyor
                     stompClient.subscribe('/topic/online-players', function (msg) {
                         var response = JSON.parse(msg.body);
-                        $scope.users = response
-                        ;
+                        $scope.users = response;
                         $scope.$apply();
                         console.log(response);
                     });
                 });
             };
+
+            $scope.gameRequest = function (index) {
+                console.log("Cift tiklanince girdi")
+                console.log(index);
+            }
 
             $scope.init = function () {
                 $scope.registerTopic();
