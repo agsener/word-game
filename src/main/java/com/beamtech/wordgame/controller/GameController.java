@@ -14,6 +14,9 @@ public class GameController {
 
     public List<GameDto> games = new ArrayList<GameDto>();
 
+
+
+
     @GetMapping("active-games")
     public List<GameDto> activeGames(){
         return games;
