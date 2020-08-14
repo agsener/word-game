@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private List<User> loggedUsers = new ArrayList<User>();
+    private List<User> loggedUsers = new ArrayList<>();
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
