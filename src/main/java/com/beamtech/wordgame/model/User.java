@@ -9,13 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @TypeAlias("user")
 @Accessors(chain = true)
 @Data
-public class User extends Base{
+public class User extends Base {
 
     private String username;
 
     private String password;
-
-    private boolean isOnline;
-
-    private boolean isInGame;
 }

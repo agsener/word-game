@@ -19,7 +19,7 @@ public class UserRepositoryTest {
     @Test
     public void createUser(){
         User user = new User()
-                .setUsername("player1")
+                .setUsername("player2")
                 .setPassword("asd");
         user.setId(UUID.randomUUID().toString());
 
