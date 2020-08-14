@@ -32,6 +32,7 @@ public class UserController {
             session.setAttribute(LOGGEDIN_USER, logedUser);
             return new GenericResponse()
                     .setCode(0);
+            
         } else {
             return new GenericResponse()
                     .setCode(10);
