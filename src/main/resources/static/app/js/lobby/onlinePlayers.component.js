@@ -57,7 +57,8 @@ angular.module("lobby")
                             Swal.fire(response.data.username + " does not want to play");
                             break;
                         case 200:
-                            $location.path("/game/" + response.id);
+                            console.log(response);
+                            $location.path("/game/" + response.data.id);
                             break;
 
                     }

@@ -21,9 +21,13 @@ app.factory('GameApi', ['$resource', function ($resource) {
             method: "POST",
             url: "/game/accept"
         },
-        word: {
+        game: {
             method: "GET",
-            url: "/game/word",
+            url: "/game/game",
         },
+        select: {
+            method: "POST",
+            url: "/game/select"
+        }
     });
 }]);

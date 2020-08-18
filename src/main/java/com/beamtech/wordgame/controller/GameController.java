@@ -1,7 +1,6 @@
 package com.beamtech.wordgame.controller;
 
 import com.beamtech.wordgame.dto.GameDto;
-import com.beamtech.wordgame.dto.LetterDto;
 import com.beamtech.wordgame.model.GenericResponse;
 import com.beamtech.wordgame.model.User;
 import com.beamtech.wordgame.service.GameService;
@@ -11,8 +10,6 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-
-import java.util.List;
 
 import static com.beamtech.wordgame.controller.UserController.LOGGEDIN_USER;
 
@@ -75,9 +72,14 @@ public class GameController {
         }
     }
 
-    @GetMapping("word")
-    public GameDto takeWord(HttpSession session){
-        User user = (User) session.getAttribute(LOGGEDIN_USER);
-        return gameService.takeWord(user);
+    @GetMapping("game")
+    public GameDto takeWord(@RequestParam("id") String id) {
+        return gameService.getGame(id);
+    }
+
+    @PostMapping("select")
+    public GameDto guess(@RequestParam("id") String game,
+                         @RequestParam("letter") char letter) {
+        return gameService.move(game, letter);
     }
 }
