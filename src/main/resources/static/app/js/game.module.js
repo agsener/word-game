@@ -20,6 +20,10 @@ app.factory('GameApi', ['$resource', function ($resource) {
         accept: {
             method: "POST",
             url: "/game/accept"
-        }
+        },
+        word: {
+            method: "GET",
+            url: "/game/word",
+        },
     });
 }]);

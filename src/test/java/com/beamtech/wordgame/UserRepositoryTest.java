@@ -1,7 +1,6 @@
 package com.beamtech.wordgame;
 
 
-
 import com.beamtech.wordgame.model.User;
 import com.beamtech.wordgame.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -17,12 +16,20 @@ public class UserRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    public void createUser(){
+    public void createUser() {
         User user = new User()
                 .setUsername("player2")
                 .setPassword("asd");
         user.setId(UUID.randomUUID().toString());
 
         userRepository.save(user);
+    }
+
+    @Test
+    public void deneme() {
+        for (int i = 0; i < 100; i++) {
+            int a = (int) (Math.random() * 2);
+            System.out.println("random number: " + a);
+        }
     }
 }

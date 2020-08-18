@@ -1,1 +1,52 @@
 <h1>hello gamers</h1>
+
+<div class="container-fluid">
+    <div class="well">
+        <div class="secretWord">
+            <ul class="list-inline">
+                <li ng-repeat="letter in secretWord">
+                    <span ng-hide="letter.chosen">_</span>
+                    <span ng-show="letter.chosen">{{ letter.name }}</span>
+                </li>
+            </ul>
+
+            <div class="letters">
+                <ul class="list-inline">
+                    <li ng-repeat="letter in letters">
+                        <button class="btn btn-primary letter-button"
+                                ng-disabled="letter.chosen"
+                                ng-click="selectWord(letter);">{{letter.name}}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    body {
+        padding: 20px 40px;
+        font-family: "Verdana";
+    }
+
+    h1 {
+        margin: 20px;
+    }
+
+    * {
+        text-align: center;
+    }
+
+    .secretWord {
+        margin-top: 20px;
+        margin-bottom: 40px;
+        font-size: 3rem;
+    }
+
+    .letter-button:disabled {
+        opacity: 0.5;
+        color: black;
+    }
+</style>
