@@ -1,6 +1,13 @@
-<h1 ng-model="whosTurn">{{whosTurn}}</h1>
-<h1 ng-model="isMyTurn">{{isMyTurn}}</h1>
-
+<div class="row">
+    <div class="alert alert-success" role="alert" ng-if="isMyTurn">
+        Your Turn
+    </div>
+</div>
+<div class="row">
+    <div class="alert alert-danger" role="alert" ng-if="!isMyTurn">
+        Your Opponet's Turn
+    </div>
+</div>
 <div class="row">
     <div class="secret-word ">
 

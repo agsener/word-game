@@ -51,7 +51,7 @@ public class GameService {
     }
 
     public String getRandomWord() {
-        return words.get((int) (Math.random() * ((words.size()))));
+        return words.get((int) (Math.random() * ((words.size())))).toLowerCase();
     }
 
     public GameDto getGame(String id) {
@@ -63,8 +63,8 @@ public class GameService {
         GameDto gameDto = activeGames.get(game);
 
         // Harf gizli kelimenin icinde varsa if'e giriyor
-        if (gameDto.getWord().toLowerCase().contains(letter + "")) {
-            char[] charArray = gameDto.getWord().toLowerCase().toCharArray();
+        if (gameDto.getWord().contains(letter + "")) {
+            char[] charArray = gameDto.getWord().toCharArray();
             for (int i = 0; i < charArray.length; i++) {
                 char c = charArray[i];
                 if (c == letter) {
