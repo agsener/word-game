@@ -27,9 +27,6 @@ public class  UserRepositoryTest {
 
     @Test
     public void deneme() {
-        for (int i = 0; i < 100; i++) {
-            int a = (int) (Math.random() * 2);
-            System.out.println("random number: " + a);
-        }
+        System.out.println((int) 'A' - (int) 'a');
     }
 }

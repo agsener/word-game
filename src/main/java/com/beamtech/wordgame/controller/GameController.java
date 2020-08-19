@@ -6,6 +6,7 @@ import com.beamtech.wordgame.model.User;
 import com.beamtech.wordgame.service.GameService;
 import com.beamtech.wordgame.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,7 +80,10 @@ public class GameController {
 
     @PostMapping("select")
     public GameDto guess(@RequestParam("id") String game,
-                         @RequestParam("letter") char letter) {
-        return gameService.move(game, letter);
+                         @RequestParam("letter") char letter,
+                         @RequestParam("turn") String currentTurn) {
+        return gameService.move(game, letter, currentTurn);
     }
+
+
 }

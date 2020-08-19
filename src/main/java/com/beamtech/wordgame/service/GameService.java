@@ -15,23 +15,21 @@ public class GameService {
 
     List<String> words = new ArrayList<>();
 
-
     @PostConstruct
     public void init() {
         words.add("AngularJS");
         words.add("Bootstrap");
         words.add("JavaScript");
-        words.add("authentication");
-        words.add("array");
-        words.add("object");
-        words.add("sublime");
-        words.add("github");
-        words.add("database");
+        words.add("Authentication");
+        words.add("Array");
+        words.add("Object");
+        words.add("Sublime");
+        words.add("Github");
+        words.add("Database");
         words.add("Heroku");
-        words.add("terminal");
-        words.add("inheritance");
+        words.add("Terminal");
+        words.add("Inheritance");
     }
-
 
     private Map<String, GameDto> activeGames = new HashMap<>();
 
@@ -39,11 +37,12 @@ public class GameService {
     private SimpMessageSendingOperations messagingTemplate;
 
     public GameDto createNewGame(User player1, User player2) {
+        int randomTurn = (int) (Math.random() * 1);
         GameDto dto = new GameDto()
                 .setSender(player1)
                 .setReceiver(player2)
                 .setWord(getRandomWord())
-                .setTurn((int) (Math.random() * 1))
+                .setWhosTurn(randomTurn == 0 ? player1.getUsername() : player2.getUsername())
                 .setId(UUID.randomUUID().toString());
 
         activeGames.put(dto.getId(), dto);
@@ -55,20 +54,17 @@ public class GameService {
         return words.get((int) (Math.random() * ((words.size()))));
     }
 
-    @Scheduled(fixedRate = 5000L)
-    public void broadcastLiveUsers() {
-        messagingTemplate.convertAndSend("/topic/active-games", activeGames.values());
-    }
-
     public GameDto getGame(String id) {
         return activeGames.get(id);
     }
 
-    public GameDto move(String game, char letter) {
+    //Oyuncu ui'dan harf tahmini yaptiginda calisan fonksiyon
+    public GameDto move(String game, char letter, String currentTurn) {
         GameDto gameDto = activeGames.get(game);
 
-        if (gameDto.getWord().contains(letter + "")) {
-            char[] charArray = gameDto.getWord().toCharArray();
+        // Harf gizli kelimenin icinde varsa if'e giriyor
+        if (gameDto.getWord().toLowerCase().contains(letter + "")) {
+            char[] charArray = gameDto.getWord().toLowerCase().toCharArray();
             for (int i = 0; i < charArray.length; i++) {
                 char c = charArray[i];
                 if (c == letter) {
@@ -76,10 +72,25 @@ public class GameService {
                     gameDto.getLetters().get(i).setName(letter + "");
                 }
             }
-        } else {
-            // move turn
         }
-
+        // Harf tahmini yanlis ise turn diger oyuncuya geciyor.
+        else {
+            if (currentTurn.equals(gameDto.getSender().getUsername())) {
+                gameDto.setWhosTurn(gameDto.getReceiver().getUsername());
+            } else {
+                gameDto.setWhosTurn(gameDto.getSender().getUsername());
+            }
+        }
+        gameState(gameDto);
         return gameDto;
+    }
+
+    public void gameState(GameDto gameDto) {
+        messagingTemplate.convertAndSend("/topic/game/" + gameDto.getId(), gameDto);
+    }
+
+    @Scheduled(fixedRate = 5000L)
+    public void broadcastLiveUsers() {
+        messagingTemplate.convertAndSend("/topic/active-games", activeGames.values());
     }
 }

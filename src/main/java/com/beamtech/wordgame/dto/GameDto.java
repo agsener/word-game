@@ -34,5 +34,5 @@ public class GameDto {
     private List<LetterDto> letters = new ArrayList<>();
 
     // turn 0 ise sira sender'da, turn 1 ise sira receiver'da
-    int turn;
+    String whosTurn;
 }
