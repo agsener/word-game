@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.UUID;
 
 @SpringBootTest
-public class UserRepositoryTest {
+public class  UserRepositoryTest {
 
     @Autowired
     UserRepository userRepository;
@@ -18,7 +18,7 @@ public class UserRepositoryTest {
     @Test
     public void createUser() {
         User user = new User()
-                .setUsername("player2")
+                .setUsername("player3")
                 .setPassword("asd");
         user.setId(UUID.randomUUID().toString());
 
