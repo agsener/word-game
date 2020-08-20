@@ -103,6 +103,7 @@ public class GameService {
     private void checkForEndOfGame(GameDto gameDto, String currentTurn) {
         if (gameDto.getRemainingLetters() == 0) {
             gameDto.setWinner(currentTurn);
+            activeGames.remove(gameDto.getId(),gameDto);
         }
     }
 

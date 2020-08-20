@@ -8,7 +8,7 @@ angular.module("lobby")
                     case 0:
                         Swal.fire({
                             title: 'New game request',
-                            text: response.username + " wants to play.",
+                            text: response.data.username + " wants to play.",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
