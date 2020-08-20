@@ -84,6 +84,4 @@ public class GameController {
                          @RequestParam("turn") String currentTurn) {
         return gameService.move(game, letter, currentTurn);
     }
-
-
 }

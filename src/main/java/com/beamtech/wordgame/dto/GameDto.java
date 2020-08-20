@@ -18,6 +18,12 @@ public class GameDto {
 
     private User receiver;
 
+    private int remainingLetters;
+
+    private String winner;
+
+    private String whosTurn;
+
     @JsonIgnore
     private String word;
 
@@ -32,7 +38,4 @@ public class GameDto {
     }
 
     private List<LetterDto> letters = new ArrayList<>();
-
-    // turn 0 ise sira sender'da, turn 1 ise sira receiver'da
-    String whosTurn;
 }

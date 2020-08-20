@@ -7,19 +7,20 @@ angular.module("game")
 
             $scope.selectWord = function (guess) {
                 GameApi.select({id: $routeParams.id, letter: guess.name, turn: whosTurn}, {}, function (response) {
-                    console.log("kimin sirasi:" + whosTurn)
                     $scope.secretWord = response.letters;
-                    LoginApi.me(function(rsp){
-                        if (rsp.username === response.whosTurn){
-                            $scope.whosTurn = response.whosTurn;
+                    LoginApi.me(function (rsp) {
+                        if (response.winner !== null && response.winner === rsp.username) {
+                            //kazandi
+                            //tekrar oynamak istermisin
+                            alert("Kazandi: " + response.winner)
+                        } else if (rsp.username === response.whosTurn) {
                             $scope.isMyTurn = true;
-                        }
-                        else{
+                            $scope.whosTurn = response.whosTurn;
+                        } else {
                             $scope.isMyTurn = false;
                             $scope.whosTurn = response.whosTurn;
                         }
                     })
-                    console.log("letters: " + response.letters[0].name);
                 });
             };
 
@@ -32,12 +33,16 @@ angular.module("game")
             $scope.init = function () {
                 WebsocketClient.subs("/topic/game/" + $routeParams.id, function (response) {
                     $scope.secretWord = response.letters;
-                    LoginApi.me(function(rsp){
-                        if (rsp.username === response.whosTurn){
+                    LoginApi.me(function (rsp) {
+                        if (response.winner !== null && response.winner !== rsp.username) {
+                            //kazandi
+                            //tekrar oynamak istermisin
+                            alert("Kaybettin: " + rsp.username)
+                        }
+                        if (rsp.username === response.whosTurn) {
                             whosTurn = response.whosTurn;
                             $scope.isMyTurn = true;
-                        }
-                        else{
+                        } else {
                             whosTurn = response.whosTurn;
                             $scope.isMyTurn = false;
                         }
@@ -46,12 +51,11 @@ angular.module("game")
                 $scope.letters = makeLetters("abcdefghijklmnopqrstuvwxyz");
                 GameApi.game({id: $routeParams.id}, function (response) {
                     $scope.secretWord = response.letters;
-                    LoginApi.me(function(rsp){
-                        if (rsp.username === response.whosTurn){
+                    LoginApi.me(function (rsp) {
+                        if (rsp.username === response.whosTurn) {
                             whosTurn = response.whosTurn;
                             $scope.isMyTurn = true;
-                        }
-                        else{
+                        } else {
                             whosTurn = response.whosTurn;
                             $scope.isMyTurn = false;
                         }

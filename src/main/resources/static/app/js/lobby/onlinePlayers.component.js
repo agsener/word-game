@@ -3,8 +3,7 @@ angular.module("lobby")
         templateUrl: "/app/template/lobby/onlinePlayers.html",
         controller: function ($scope, $window, GameApi, LoginApi, WebsocketClient, $location) {
 
-
-            $scope.newGameRequest = function(response){
+            $scope.newGameRequest = function (response) {
                 switch (response.code) {
                     case 0:
                         Swal.fire({
@@ -33,9 +32,7 @@ angular.module("lobby")
                         console.log(response);
                         $location.path("/game/" + response.data.id);
                         break;
-
                 }
-
             };
 
             $scope.gameRequest = function (user) {
@@ -48,13 +45,13 @@ angular.module("lobby")
 
                 $scope.users = [];
                 $scope.activeGames = [];
-                WebsocketClient.subs('/topic/online-players', function(response){
-                        $scope.users = response;
-                        $scope.$apply();
+                WebsocketClient.subs('/topic/online-players', function (response) {
+                    $scope.users = response;
+                    $scope.$apply();
                 });
 
                 LoginApi.me(function (response) {
-                    WebsocketClient.subs("/topic/game-request/" + response.username, function(response){
+                    WebsocketClient.subs("/topic/game-request/" + response.username, function (response) {
                         $scope.newGameRequest(response);
                     });
                 });
