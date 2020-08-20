@@ -36,6 +36,17 @@ public class GameDto {
         }
         return this;
     }
+    public GameDto setAlphabet(String[] a) {
+        for (String s : a) {
+            LetterDto letterDto = new LetterDto()
+                    .setName(s)
+                    .setChosen(false);
+            alphabet.add(letterDto);
+        }
+        return this;
+    }
 
     private List<LetterDto> letters = new ArrayList<>();
+
+    private List<LetterDto> alphabet = new ArrayList<>();
 }

@@ -49,6 +49,7 @@ angular.module("game")
             $scope.init = function () {
                 WebsocketClient.subs("/topic/game/" + $routeParams.id, function (response) {
                     $scope.secretWord = response.letters;
+                    $scope.letters = response.alphabet;
                     LoginApi.me(function (rsp) {
                         if (response.winner !== null && response.winner !== rsp.username) {
                             //kaybetti
@@ -83,6 +84,7 @@ angular.module("game")
                 $scope.letters = makeLetters("abcdefghijklmnopqrstuvwxyz");
                 GameApi.game({id: $routeParams.id}, function (response) {
                     $scope.secretWord = response.letters;
+                    $scope.letters = response.alphabet;
                     LoginApi.me(function (rsp) {
                         if (rsp.username === response.whosTurn) {
                             whosTurn = response.whosTurn;

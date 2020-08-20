@@ -1,6 +1,7 @@
 package com.beamtech.wordgame.service;
 
 import com.beamtech.wordgame.dto.GameDto;
+import com.beamtech.wordgame.dto.LetterDto;
 import com.beamtech.wordgame.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -14,6 +15,7 @@ import java.util.*;
 public class GameService {
 
     List<String> words = new ArrayList<>();
+    String[] a = "abcdefghijklmnopqrstuvwxyz".split("(?!^)");
 
     @PostConstruct
     public void init() {
@@ -42,9 +44,9 @@ public class GameService {
         GameDto dto = new GameDto()
                 .setSender(player1)
                 .setReceiver(player2)
-                .setWord(randomWord)
-                .setRemainingLetters(randomWord.length())
+                .setWord("Inheritance")
                 .setWhosTurn(randomTurn == 0 ? player1.getUsername() : player2.getUsername())
+                .setAlphabet(a)
                 .setId(UUID.randomUUID().toString());
         activeGames.put(dto.getId(), dto);
         return dto;
@@ -61,21 +63,16 @@ public class GameService {
     //Oyuncu ui'dan harf tahmini yaptiginda calisan fonksiyon
     public GameDto move(String game, char letter, String currentTurn) {
         GameDto gameDto = activeGames.get(game);
-
         // Harf gizli kelimenin icinde varsa if'e giriyor
         if (gameDto.getWord().contains(letter + "")) {
             char[] charArray = gameDto.getWord().toCharArray();
-            int numberOfInstance = 0;
             for (int i = 0; i < charArray.length; i++) {
                 char c = charArray[i];
                 if (c == letter) {
                     gameDto.getLetters().get(i).setChosen(true);
                     gameDto.getLetters().get(i).setName(letter + "");
-                    numberOfInstance++;
                 }
             }
-            gameDto.setRemainingLetters(gameDto.getRemainingLetters() - numberOfInstance);
-            checkForEndOfGame(gameDto, currentTurn);
         }
         // Harf tahmini yanlis ise turn diger oyuncuya geciyor.
         else {
@@ -85,18 +82,17 @@ public class GameService {
                 gameDto.setWhosTurn(gameDto.getSender().getUsername());
             }
         }
+        for(LetterDto l : gameDto.getAlphabet()){
+            if(letter == l.getName().charAt(0)){
+                l.setChosen(true);
+            }
+        }
         gameState(gameDto);
         return gameDto;
     }
 
     public void gameState(GameDto gameDto) {
         messagingTemplate.convertAndSend("/topic/game/" + gameDto.getId(), gameDto);
-    }
-
-    private void checkForEndOfGame(GameDto gameDto, String currentTurn) {
-        if (gameDto.getRemainingLetters() == 0) {
-            gameDto.setWinner(currentTurn);
-        }
     }
 
     @Scheduled(fixedRate = 5000L)
