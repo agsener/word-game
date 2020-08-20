@@ -31,7 +31,7 @@ public class UserService {
         }
     }
 
-    @Scheduled(fixedRate = 5000L)
+    @Scheduled(fixedRate = 2000L)
     public void broadcastLiveUsers() {
         messagingTemplate.convertAndSend("/topic/online-players", loggedUsers);
     }

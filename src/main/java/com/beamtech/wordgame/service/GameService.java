@@ -106,7 +106,7 @@ public class GameService {
         }
     }
 
-    @Scheduled(fixedRate = 5000L)
+    @Scheduled(fixedRate = 2000L)
     public void broadcastLiveUsers() {
         messagingTemplate.convertAndSend("/topic/active-games", activeGames.values());
     }
