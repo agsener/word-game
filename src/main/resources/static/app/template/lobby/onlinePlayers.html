@@ -1,9 +1,12 @@
-<div>
-    <ul class="list-unstyled user-list">
+<div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+        <p>Players</p>
+    </div>
+    <ul class="list-unstyled">
         <li ng-repeat="user in users">
-            <div class="col hand"
+            <div class="col list-group-item list-group-item-action hand"
                  ng-dblclick="gameRequest(user)">
-                {{user.username}}
+                <p>{{user.username}}</p>
             </div>
         </li>
     </ul>
@@ -12,10 +15,6 @@
 <style>
     .hand {
         cursor: pointer;
-    }
-
-    .user-list {
-        border-right: 1px solid #CCC;
     }
 </style>
 

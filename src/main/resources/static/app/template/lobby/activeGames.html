@@ -1,7 +1,13 @@
-<div>
-    <ul>
+<div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+        <p>Active Games</p>
+    </div>
+    <ul class="list-unstyled">
         <li ng-repeat="activeGame in activeGames">
-                {{activeGame.sender.username}} - {{activeGame.receiver.username}}
+            <div class="col list-group-item list-group-item-action hand"
+                 ng-dblclick="gameRequest(user)">
+                <p>{{activeGame.sender.username}} - {{activeGame.receiver.username}}</p>
+            </div>
         </li>
     </ul>
 </div>

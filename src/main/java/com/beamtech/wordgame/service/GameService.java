@@ -19,18 +19,26 @@ public class GameService {
 
     @PostConstruct
     public void init() {
-        words.add("AngularJS");
-        words.add("Bootstrap");
-        words.add("JavaScript");
-        words.add("Authentication");
-        words.add("Array");
-        words.add("Object");
-        words.add("Sublime");
-        words.add("Github");
-        words.add("Database");
-        words.add("Heroku");
-        words.add("Terminal");
-        words.add("Inheritance");
+        words.add("Kabil");
+        words.add("Viyana");
+        words.add("Bakü");
+        words.add("Brüksel");
+        words.add("Saraybosna");
+        words.add("Pekin");
+        words.add("Lefkoşa");
+        words.add("Prag");
+        words.add("Paris");
+        words.add("Berlin");
+        words.add("Bağdat");
+        words.add("Roma");
+        words.add("Amsterdam");
+        words.add("Lizbon");
+        words.add("Moskova");
+        words.add("Singapur");
+        words.add("Madrid");
+        words.add("Şam");
+        words.add("Tunus");
+        words.add("Londra");
     }
 
     private Map<String, GameDto> activeGames = new HashMap<>();
@@ -40,7 +48,7 @@ public class GameService {
 
     public GameDto createNewGame(User player1, User player2) {
         int randomTurn = (int) (Math.random() * 1);
-        String randomWord = /*getRandomWord()*/  "şöbiyet";
+        String randomWord = getRandomWord();
         GameDto dto = new GameDto()
                 .setSender(player1)
                 .setReceiver(player2)
@@ -87,8 +95,8 @@ public class GameService {
                 gameDto.setWhosTurn(gameDto.getSender().getUsername());
             }
         }
-        for(LetterDto l : gameDto.getAlphabet()){
-            if(letter == l.getName().charAt(0)){
+        for (LetterDto l : gameDto.getAlphabet()) {
+            if (letter == l.getName().charAt(0)) {
                 l.setChosen(true);
             }
         }
@@ -103,7 +111,7 @@ public class GameService {
     private void checkForEndOfGame(GameDto gameDto, String currentTurn) {
         if (gameDto.getRemainingLetters() == 0) {
             gameDto.setWinner(currentTurn);
-            activeGames.remove(gameDto.getId(),gameDto);
+            activeGames.remove(gameDto.getId(), gameDto);
         }
     }
 
