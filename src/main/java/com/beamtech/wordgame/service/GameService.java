@@ -44,7 +44,8 @@ public class GameService {
         GameDto dto = new GameDto()
                 .setSender(player1)
                 .setReceiver(player2)
-                .setWord("Inheritance")
+                .setWord("ab")
+                .setRemainingLetters(randomWord.length())
                 .setWhosTurn(randomTurn == 0 ? player1.getUsername() : player2.getUsername())
                 .setAlphabet(a)
                 .setId(UUID.randomUUID().toString());
@@ -66,13 +67,17 @@ public class GameService {
         // Harf gizli kelimenin icinde varsa if'e giriyor
         if (gameDto.getWord().contains(letter + "")) {
             char[] charArray = gameDto.getWord().toCharArray();
+            int numberOfInstance = 0;
             for (int i = 0; i < charArray.length; i++) {
                 char c = charArray[i];
                 if (c == letter) {
                     gameDto.getLetters().get(i).setChosen(true);
                     gameDto.getLetters().get(i).setName(letter + "");
+                    numberOfInstance++;
                 }
             }
+            gameDto.setRemainingLetters(gameDto.getRemainingLetters() - numberOfInstance);
+            checkForEndOfGame(gameDto, currentTurn);
         }
         // Harf tahmini yanlis ise turn diger oyuncuya geciyor.
         else {
@@ -93,6 +98,12 @@ public class GameService {
 
     public void gameState(GameDto gameDto) {
         messagingTemplate.convertAndSend("/topic/game/" + gameDto.getId(), gameDto);
+    }
+
+    private void checkForEndOfGame(GameDto gameDto, String currentTurn) {
+        if (gameDto.getRemainingLetters() == 0) {
+            gameDto.setWinner(currentTurn);
+        }
     }
 
     @Scheduled(fixedRate = 5000L)
