@@ -38,7 +38,7 @@ public class GameService {
 
     public GameDto createNewGame(User player1, User player2) {
         int randomTurn = (int) (Math.random() * 1);
-        String randomWord = getRandomWord();
+        String randomWord = /*getRandomWord()*/  "ab";
         GameDto dto = new GameDto()
                 .setSender(player1)
                 .setReceiver(player2)
@@ -46,9 +46,7 @@ public class GameService {
                 .setRemainingLetters(randomWord.length())
                 .setWhosTurn(randomTurn == 0 ? player1.getUsername() : player2.getUsername())
                 .setId(UUID.randomUUID().toString());
-
         activeGames.put(dto.getId(), dto);
-
         return dto;
     }
 
