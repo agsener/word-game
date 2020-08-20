@@ -15,7 +15,7 @@ import java.util.*;
 public class GameService {
 
     List<String> words = new ArrayList<>();
-    String[] a = "abcdefghijklmnopqrstuvwxyz".split("(?!^)");
+    String[] a = "abcçdefgğhıijklmnoöpqrsştuüvyz".split("(?!^)");
 
     @PostConstruct
     public void init() {
@@ -40,11 +40,11 @@ public class GameService {
 
     public GameDto createNewGame(User player1, User player2) {
         int randomTurn = (int) (Math.random() * 1);
-        String randomWord = /*getRandomWord()*/  "ab";
+        String randomWord = /*getRandomWord()*/  "şöbiyet";
         GameDto dto = new GameDto()
                 .setSender(player1)
                 .setReceiver(player2)
-                .setWord("ab")
+                .setWord(randomWord)
                 .setRemainingLetters(randomWord.length())
                 .setWhosTurn(randomTurn == 0 ? player1.getUsername() : player2.getUsername())
                 .setAlphabet(a)
