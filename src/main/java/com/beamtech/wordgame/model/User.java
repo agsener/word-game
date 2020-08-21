@@ -5,6 +5,8 @@ import lombok.experimental.Accessors;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document(collection = "user")
 @TypeAlias("user")
 @Accessors(chain = true)
@@ -12,6 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User extends Base {
 
     private String username;
+
+    private Date lastBeat;
 
     @Override
     public boolean equals(Object obj) {

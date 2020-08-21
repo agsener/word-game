@@ -1,19 +1,14 @@
 <div class="row">
-    <div class="alert alert-success" role="alert" ng-if="isMyTurn">
-        Your Turn
-    </div>
-</div>
-
-<div class="row">
-    <div class="alert alert-danger" role="alert" ng-if="!isMyTurn">
-        Your Opponet's Turn
+    <div class="alert"
+         ng-class="{'alert-danger': !isMyTurn, 'alert-success': isMyTurn}">
+        {{isMyTurn ? 'Your Turn' : 'Your Opponent\'s Turn'}}
     </div>
 </div>
 
 <div class="row" style="text-align: center">
     <div class="secret-word">
         <ul class="list-unstyled word-list">
-            <li ng-repeat="letter in secretWord" class="letter">
+            <li ng-repeat="letter in secretWord track by $index" class="letter">
                 <div ng-class="{'underscore': !letter.chosen}" style="height: 100px;">{{letter.name}}</div>
             </li>
         </ul>
@@ -21,8 +16,8 @@
 </div>
 
 <div class="row">
-    <div class="col-3">
-        <ul class="list-inline">
+
+        <ul class="list-inline keyboard">
             <li ng-repeat="letter in letters" class="letter-to-choose">
                 <button class="btn btn-primary letter-button"
                         ng-disabled="letter.chosen || !isMyTurn"
@@ -30,7 +25,6 @@
                 </button>
             </li>
         </ul>
-    </div>
 </div>
 
 <style>
@@ -48,10 +42,9 @@
     }
 
     .secret-word {
-        margin-top: 20px;
-        margin-bottom: 40px;
         font-size: 3rem;
         text-align: center;
+        margin: 10px auto 30px;
     }
 
     .letter-button{
@@ -73,9 +66,6 @@
         min-height: 60px;
     }
 
-    .word-list {
-        width: 400px;
-    }
 
     .letter-to-choose {
         width: 50px;
@@ -93,5 +83,10 @@
     }
     .col-3 {
         display:inline-block;
+    }
+
+    .keyboard{
+        width: 280px;
+        margin: 0 auto;
     }
 </style>

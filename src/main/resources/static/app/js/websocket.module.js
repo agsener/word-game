@@ -1,7 +1,7 @@
 var app = angular.module("websocket",
     []);
 
-app.factory('WebsocketClient', ["$q", function ($q) {
+app.factory('WebsocketClient', ["$q", "$timeout", function ($q, $timeout) {
 
         var socket = new SockJS('/word-socket');
         var stompClient = Stomp.over(socket);
@@ -11,7 +11,7 @@ app.factory('WebsocketClient', ["$q", function ($q) {
 
         stompClient.connect({}, function (frame) {
             deferred.resolve();
-            console.log('Connected: ' + frame);
+            // $timeout 5sn bir send heart beat.
         });
 
         function subscribe(topic, callback){
