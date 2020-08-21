@@ -6,9 +6,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -21,6 +19,7 @@ public class UserService {
     public User login(User user) {
         boolean isExist = loggedUsers.contains(user);
         if (!isExist) {
+            user.setId(UUID.randomUUID().toString());
             loggedUsers.add(user);
             return user;
         } else {
@@ -43,5 +42,23 @@ public class UserService {
             }
         }
         return null;
+    }
+
+    @Scheduled(fixedRate = 10000L)
+    public void timeout(){
+        Date now = new Date();
+        loggedUsers.forEach(user -> {
+            if(now.getTime() - user.getLastBeat().getTime() > 6000){
+                loggedUsers.remove(user);
+            }
+        });
+    }
+
+    public void beat(User user) {
+        loggedUsers.forEach(u -> {
+            if(u.getId().equals(user.getId())){
+                u.setLastBeat(new Date());
+            }
+        });
     }
 }

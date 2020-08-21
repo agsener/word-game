@@ -28,7 +28,8 @@ public class UserController {
         if (logedUser != null) {
             session.setAttribute(LOGGEDIN_USER, logedUser);
             return new GenericResponse()
-                    .setCode(0);
+                    .setCode(0)
+                    .setData(logedUser);
 
         } else {
             return new GenericResponse()
@@ -41,5 +42,7 @@ public class UserController {
     public User me(HttpSession session) {
         return (User) session.getAttribute(LOGGEDIN_USER);
     }
+
+
 }
 

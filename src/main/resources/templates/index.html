@@ -5,8 +5,27 @@
     <title>todo</title>
 
     <link href="/3rd/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url("https://colibriwp.com/blog/wp-content/uploads/2019/08/pink-purple.png");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
-<body ng-app="app">
+<body ng-app="app" class="bg">
 <div ng-view="">
 
 </div>
@@ -33,10 +52,6 @@
 
 <script src="/app/js/game.module.js"></script>
 <script src="/app/js/game/game.component.js"></script>
-
-
-
-
 
 </body>
 </html>

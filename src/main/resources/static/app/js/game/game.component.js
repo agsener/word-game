@@ -12,7 +12,7 @@ angular.module("game")
                         if (response.winner !== null && response.winner === rsp.username) {
                             //kazandi
                             //tekrar oynamak istermisin
-                            Swal.fire('Winner: ');
+                            Swal.fire('Winner');
                             $location.path("/lobby");
                         } else if (rsp.username === response.whosTurn) {
                             $scope.isMyTurn = true;
@@ -39,7 +39,7 @@ angular.module("game")
                         if (response.winner !== null && response.winner !== rsp.username) {
                             //kaybetti
                             //tekrar oynamak istermisin
-                            Swal.fire('Looser: ');
+                            Swal.fire('Looser');
                             $location.path("/lobby");
                         } else if (rsp.username === response.whosTurn) {
                             whosTurn = response.whosTurn;
