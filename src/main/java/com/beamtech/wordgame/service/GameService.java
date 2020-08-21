@@ -38,7 +38,20 @@ public class GameService {
         words.add("Madrid");
         words.add("Şam");
         words.add("Tunus");
-        words.add("Londra");
+        words.add("Cezayir");
+        words.add("Sofya");
+        words.add("Ottawa");
+        words.add("Havana");
+        words.add("Kopenhag");
+        words.add("Kahire");
+        words.add("Helsinki");
+        words.add("Budapeşte");
+        words.add("Tahran");
+        words.add("Tokyo");
+        words.add("Seul");
+        words.add("Varşova");
+        words.add("Stokholm");
+
     }
 
     private Map<String, GameDto> activeGames = new HashMap<>();
