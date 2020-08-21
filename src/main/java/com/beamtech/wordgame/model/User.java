@@ -13,8 +13,6 @@ public class User extends Base {
 
     private String username;
 
-    private String password;
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof User) {

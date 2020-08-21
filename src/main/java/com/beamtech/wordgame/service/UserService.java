@@ -1,13 +1,13 @@
 package com.beamtech.wordgame.service;
 
 import com.beamtech.wordgame.model.User;
-import com.beamtech.wordgame.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Service
@@ -18,14 +18,11 @@ public class UserService {
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public User login(String username, String password) {
-        User dbUser = userRepository.findByUsername(username);
-        if (dbUser != null && dbUser.getPassword().equals(password)) {
-            loggedUsers.add(dbUser);
-            return dbUser;
+    public User login(User user) {
+        boolean isExist = loggedUsers.contains(user);
+        if (!isExist) {
+            loggedUsers.add(user);
+            return user;
         } else {
             return null;
         }
@@ -37,6 +34,14 @@ public class UserService {
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        Iterator<User> userIterator = loggedUsers.iterator();
+        User user;
+        while (userIterator.hasNext()) {
+            user = userIterator.next();
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
     }
 }

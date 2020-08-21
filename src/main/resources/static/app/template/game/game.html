@@ -10,8 +10,8 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="secret-word ">
+<div class="row" style="text-align: center">
+    <div class="secret-word">
         <ul class="list-unstyled word-list">
             <li ng-repeat="letter in secretWord" class="letter">
                 <div ng-class="{'underscore': !letter.chosen}" style="height: 100px;">{{letter.name}}</div>
@@ -86,5 +86,12 @@
 
     .underscore {
         border-bottom: 3px solid black;
+    }
+
+    .row {
+        text-align: center;
+    }
+    .col-3 {
+        display:inline-block;
     }
 </style>

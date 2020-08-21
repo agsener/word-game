@@ -24,7 +24,7 @@ public class UserController {
      */
     @PostMapping("login")
     public GenericResponse login(@RequestBody User user, HttpSession session) {
-        User logedUser = userService.login(user.getUsername(), user.getPassword());
+        User logedUser = userService.login(user);
         if (logedUser != null) {
             session.setAttribute(LOGGEDIN_USER, logedUser);
             return new GenericResponse()
@@ -32,6 +32,7 @@ public class UserController {
 
         } else {
             return new GenericResponse()
+                    .setMessage("Username is not available")
                     .setCode(10);
         }
     }
