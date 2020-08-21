@@ -47,7 +47,7 @@ public class GameService {
     private SimpMessageSendingOperations messagingTemplate;
 
     public GameDto createNewGame(User player1, User player2) {
-        int randomTurn = (int) (Math.random() * 1);
+        int randomTurn = (int) (Math.random() * 2);
         String randomWord = getRandomWord();
         GameDto dto = new GameDto()
                 .setSender(player1)
